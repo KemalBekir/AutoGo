@@ -1,7 +1,6 @@
 import { CarProps, FilterProps } from "@/types";
 
 export async function fetchCars(filters: FilterProps) {
-
   const { manufacturer, year, model, limit, fuel } = filters;
   const headers = {
     "X-RapidAPI-Key": process.env.RAPID_API!,
@@ -46,4 +45,12 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   url.searchParams.append("make", make);
 
   return `${url}`;
+};
+
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(type, value);
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+  return newPathname;
 };
