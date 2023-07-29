@@ -1,8 +1,8 @@
 "use client";
 
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
+import Spinner from "@/components/Spinner";
 import { fuels, yearsOfProduction } from "@/constants";
-import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -63,25 +63,17 @@ export default function Home() {
           </div>
         </div>
 
-        {allCars.length > 0 ? (
+        {loading ? (
+          <div className="mt-16 w-full flex-center">
+            <Spinner />
+          </div>
+        ) : allCars.length > 0 ? (
           <section>
             <div className="home__cars-wrapper">
               {allCars?.map((car) => (
-                <CarCard car={car} />
+                <CarCard  car={car} /> // Assuming each car has a unique 'id' property
               ))}
             </div>
-
-            {loading && (
-              <div className="mt-16 w-full flex-center">
-                <Image
-                  src="/loader.svg"
-                  alt="loader"
-                  width={50}
-                  height={50}
-                  className="object-contain"
-                />
-              </div>
-            )}
 
             <ShowMore
               pageNumber={limit / 10}
@@ -91,7 +83,7 @@ export default function Home() {
           </section>
         ) : (
           <div className="home__error-container">
-            <h2 className="text-black text-xl font-bold">Opps, no results</h2>
+            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
           </div>
         )}
       </div>

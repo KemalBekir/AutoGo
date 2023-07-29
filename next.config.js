@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     domains: ["cdn.imagin.studio"],
   },
-  env: {},
+  env: {
+  },
 };
 
 module.exports = nextConfig;
